@@ -6,6 +6,7 @@ import { Hero } from "@/components/Hero";
 import { InvitationShell } from "@/components/InvitationShell";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { NavBar } from "@/components/NavBar";
+import { MonthByMonth } from "@/components/MonthByMonth";
 import { PhotoJourney } from "@/components/PhotoJourney";
 import { RsvpSection } from "@/components/RsvpSection";
 import { Surprise } from "@/components/Surprise";
@@ -21,6 +22,7 @@ export default function Home() {
         <Hero />
         <Verse />
         <YearOfBlessings />
+        <MonthByMonth photos={getPhotos().months} />
         <PhotoJourney photos={getPhotos().journey} />
         <Countdown />
         <Surprise />

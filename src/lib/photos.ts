@@ -16,6 +16,7 @@ export function getPhotos() {
     hero: find("hero"),
     timeline: many("timeline", 5),
     journey: many("journey", 6),
+    months: many("month", 12),
   };
 }
 

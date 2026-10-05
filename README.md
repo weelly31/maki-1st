@@ -15,6 +15,7 @@ Drop images into `public/photos/` (jpg, jpeg, png or webp). Missing photos show 
 | --- | --- |
 | `hero.*` | Hero portrait |
 | `timeline-1..5.*` | A Year of Blessings |
+| `month-1..12.*` | 12 Months of Blessings (Month 1 ? Month 12) |
 | `journey-1..6.*` | Photo Journey (Beginning ? Today) |
 
 Photos are detected at build time, so rebuild/redeploy after adding them.

@@ -16,6 +16,7 @@ export const NAV_LINKS = [
   { href: "#hero", label: "Makarius" },
   { href: "#verse", label: "Blessing" },
   { href: "#blessings", label: "A Year of Blessings" },
+  { href: "#months", label: "12 Months" },
   { href: "#journey", label: "Photo Journey" },
   { href: "#countdown", label: "Countdown" },
   { href: "#surprise", label: "Surprise" },
