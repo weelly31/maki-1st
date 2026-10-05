@@ -1,26 +1,214 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: #fbf7ee;
+  --color-cream: #f5ecd9;
+  --color-beige: #e6d5b8;
+  --color-sage: #a9bc96;
+  --color-sage-deep: #2f5f73;
+  --color-sky: #cfe5f1;
+  --color-sky-deep: #5f9cc4;
+  --color-gold: #c9a24a;
+  --color-ink: #22364a;
+  --font-display: var(--f-display);
+  --font-script: var(--f-script);
+  --font-sans: var(--f-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  font-family: var(--f-body), system-ui, sans-serif;
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
 }
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal-left {
+  transform: translateX(-32px);
+}
+.reveal-right {
+  transform: translateX(32px);
+}
+.reveal-zoom {
+  transform: scale(0.94);
+}
+.reveal.show {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- ambient animations ---------- */
+@keyframes drift {
+  from {
+    transform: translateX(-12%);
+  }
+  to {
+    transform: translateX(12%);
+  }
+}
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0);
+  }
+  50% {
+    transform: rotate(8deg) translateY(10px);
+  }
+}
+@keyframes fall {
+  from {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(var(--dx, 30px), 110vh, 0) rotate(360deg);
+  }
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.7);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+@keyframes flutter {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(-6deg);
+  }
+  50% {
+    transform: translate(14px, -18px) rotate(8deg);
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes confetti {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) rotate(var(--r)) scale(0.8);
+    opacity: 0;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}
+
+.animate-drift {
+  animation: drift 24s ease-in-out infinite alternate;
+}
+.animate-sway {
+  animation: sway 7s ease-in-out infinite;
+}
+.animate-fall {
+  animation: fall linear infinite;
+}
+.animate-twinkle {
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+.animate-glow {
+  animation: glow 6s ease-in-out infinite;
+}
+.animate-flutter {
+  animation: flutter 5s ease-in-out infinite;
+}
+.animate-bob {
+  animation: bob 3s ease-in-out infinite;
+}
+.animate-pop {
+  animation: pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+}
+.animate-wiggle {
+  animation: wiggle 1.4s ease-in-out infinite;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(120deg, #a8802c, #e3c777 45%, #b88f33);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-drift,
+  .animate-sway,
+  .animate-fall,
+  .animate-twinkle,
+  .animate-glow,
+  .animate-flutter,
+  .animate-bob,
+  .animate-wiggle {
+    animation: none;
+  }
+}
+
