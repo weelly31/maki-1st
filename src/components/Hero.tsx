@@ -18,7 +18,7 @@ export function Hero() {
         <Reveal from="zoom" className="relative">
           <div className="rounded-t-full border-[6px] border-white bg-white p-2 shadow-2xl shadow-sage-deep/20 ring-1 ring-gold/50">
             <Photo
-              src={PHOTOS.hero}
+              src="/photos/hero.jpg"
               alt="Makarius Kleon Andrade"
               priority
               sizes="(max-width: 640px) 80vw, 360px"

@@ -4,11 +4,11 @@ import { Section, SectionTitle } from "./Section";
 import { getPhotos } from "@/lib/photos";
 
 const ITEMS = [
-  { icon: "🌱", title: "A New Beginning", text: "The day God blessed our family with Makarius." },
-  { icon: "☀️", title: "Growing in Love", text: "His first smiles, laughs, and precious moments." },
-  { icon: "🌿", title: "Little Discoveries", text: "Every new experience and little adventure." },
-  { icon: "🏞️", title: "Precious Memories", text: "Moments shared with family and loved ones." },
-  { icon: "🎂", title: "ONE BEAUTIFUL YEAR", text: "Celebrating his first year of life." },
+  { icon: "🌱", title: "A New Beginning", text: "The day God blessed our family with Makarius.", image: "/photos/1st.jpg" },
+  { icon: "☀️", title: "Growing in Love", text: "His first smiles, laughs, and precious moments.", image: "/photos/growing-in-love.jpg" },
+  { icon: "🌿", title: "Little Discoveries", text: "Every new experience and little adventure.", image: "/photos/little-discoveries.jpg" },
+  { icon: "🏞️", title: "Precious Memories", text: "Moments shared with family and loved ones.", image: "/photos/precious.jpg" },
+  { icon: "🎂", title: "ONE BEAUTIFUL YEAR", text: "Celebrating his first year of life.", image: "/photos/one-year.jpg" },
 ];
 
 export function YearOfBlessings() {
@@ -29,7 +29,7 @@ export function YearOfBlessings() {
                 <Reveal from={right ? "right" : "left"} className={right ? "md:col-start-2" : "md:col-start-1"}>
                   <div className="overflow-hidden rounded-3xl bg-white shadow-xl shadow-sage-deep/10 ring-1 ring-beige">
                     <Photo
-                      src={PHOTOS.timeline[i]}
+                      src={item.image}
                       alt={item.title}
                       sizes="(max-width: 768px) 80vw, 400px"
                       className="aspect-[4/3] w-full"
