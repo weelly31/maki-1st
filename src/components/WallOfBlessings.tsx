@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle, buttonStyles } from "./Section";
 
@@ -12,6 +12,8 @@ export function WallOfBlessings() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
+  const submitting = useRef(false);
 
   useEffect(() => {
     fetch("/api/messages")
@@ -26,6 +28,8 @@ export function WallOfBlessings() {
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (submitting.current) return;
+
     const form = e.currentTarget;
     const data = new FormData(form);
     const name = String(data.get("name") ?? "").trim();
@@ -34,6 +38,8 @@ export function WallOfBlessings() {
       setError("Please add your name and a message.");
       return;
     }
+    submitting.current = true;
+    setSending(true);
     setError("");
     try {
       const response = await fetch("/api/messages", {
@@ -49,6 +55,9 @@ export function WallOfBlessings() {
       form.reset();
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Unable to save message.");
+    } finally {
+      submitting.current = false;
+      setSending(false);
     }
   }
 
@@ -73,8 +82,8 @@ export function WallOfBlessings() {
             className="w-full rounded-2xl border border-beige bg-white px-4 py-3 text-base outline-none focus:border-gold focus:ring-2 focus:ring-gold/30"
           />
           {error && <p className="text-sm text-red-700">{error}</p>}
-          <button type="submit" className={`${buttonStyles.primary} w-full`}>
-            💌 Post Blessing
+          <button type="submit" disabled={sending} className={`${buttonStyles.primary} w-full disabled:cursor-not-allowed disabled:opacity-60`}>
+            {sending ? "Posting…" : "💌 Post Blessing"}
           </button>
         </form>
       </Reveal>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle, buttonStyles } from "./Section";
 
@@ -20,10 +20,11 @@ export function RsvpSection() {
   const [done, setDone] = useState<"yes" | "no" | null>(null);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
+  const submitting = useRef(false);
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!choice) return;
+    if (!choice || submitting.current) return;
     const data = new FormData(e.currentTarget);
     const rsvp: Rsvp = {
       attending: choice === "yes",
@@ -32,6 +33,7 @@ export function RsvpSection() {
       message: String(data.get("message") ?? "").trim(),
       at: new Date().toISOString(),
     };
+    submitting.current = true;
     setSending(true);
     setError("");
     try {
@@ -48,6 +50,7 @@ export function RsvpSection() {
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Unable to save RSVP.");
     } finally {
+      submitting.current = false;
       setSending(false);
     }
   }
