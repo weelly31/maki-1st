@@ -1,24 +1,49 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import { createFileMusic, createMusic } from "@/lib/music";
 
-export function MusicPlayer({ src }: { src: string | null }) {
+export function MusicPlayer({ 
+  src, 
+  playTrigger 
+}: { 
+  src: string | null; 
+  playTrigger?: number; 
+}) {
   const music = useRef<ReturnType<typeof createMusic> | null>(null);
   const [playing, setPlaying] = useState(false);
 
-  async function toggle() {
+  const startPlaying = useCallback(async () => {
     music.current ??= src ? createFileMusic(src) : createMusic();
-    if (playing) {
+    try {
+      await music.current.start();
+      setPlaying(true);
+    } catch {
+      setPlaying(false);
+    }
+  }, [src]);
+
+  function stopPlaying() {
+    if (music.current) {
       music.current.stop();
       setPlaying(false);
+    }
+  }
+
+  // Awtomatikong magpe-play kapag nagbago ang playTrigger mula sa parent
+  useEffect(() => {
+    if (!playTrigger) return;
+    const timer = window.setTimeout(() => {
+      void startPlaying();
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [playTrigger, startPlaying]);
+
+  async function toggle() {
+    if (playing) {
+      stopPlaying();
     } else {
-      try {
-        await music.current.start();
-        setPlaying(true);
-      } catch {
-        setPlaying(false);
-      }
+      await startPlaying();
     }
   }
 

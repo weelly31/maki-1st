@@ -6,7 +6,13 @@ import { EVENT } from "@/lib/event";
 
 type Phase = "closed" | "opening" | "leaving";
 
-export function Opening({ onOpened }: { onOpened: () => void }) {
+export function Opening({ 
+  onOpened, 
+  onOpenMusic 
+}: { 
+  onOpened: () => void; 
+  onOpenMusic?: () => void; 
+}) {
   const [phase, setPhase] = useState<Phase>("closed");
 
   useEffect(() => {
@@ -20,6 +26,13 @@ export function Opening({ onOpened }: { onOpened: () => void }) {
   }, [phase, onOpened]);
 
   const open = phase !== "closed";
+
+  const handleOpenClick = () => {
+    setPhase("opening");
+    if (onOpenMusic) {
+      onOpenMusic();
+    }
+  };
 
   return (
     <div
@@ -86,7 +99,7 @@ export function Opening({ onOpened }: { onOpened: () => void }) {
 
         <button
           type="button"
-          onClick={() => setPhase("opening")}
+          onClick={handleOpenClick}
           disabled={open}
           className={`min-h-12 rounded-full bg-gradient-to-r from-[#b8923a] to-[#dcbb64] px-8 py-3 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-lg shadow-gold/40 transition active:scale-95 ${
             open ? "scale-90 opacity-0" : "hover:brightness-105"

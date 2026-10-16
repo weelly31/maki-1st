@@ -4,7 +4,7 @@ export const EVENT = {
   dateLabel: "November 7, 2026",
   shortDate: "November 7",
   timeLabel: "3:00 PM",
-  venue: "Tanglaw Touch Care Foundation",
+  venue: "Tanglaw Ministry Center",
   // Philippine Standard Time (UTC+8)
   startsAt: "2026-11-07T15:00:00+08:00",
   endsAt: "2026-11-07T18:00:00+08:00",
@@ -17,11 +17,12 @@ export const NAV_LINKS = [
   { href: "#verse", label: "Blessing" },
   { href: "#blessings", label: "A Year of Blessings" },
   { href: "#months", label: "12 Months" },
+  { href: "#funny", label: "Funny Photos & Dress Code" },
   { href: "#journey", label: "Photo Journey" },
   { href: "#countdown", label: "Countdown" },
   { href: "#surprise", label: "Surprise" },
   { href: "#details", label: "Celebration" },
   { href: "#rsvp", label: "RSVP" },
   { href: "#wall", label: "Messages" },
+  { href: "/attendance-list", label: "Attendance List" },
 ];
-

@@ -62,11 +62,11 @@ export function PhotoJourney({ photos }: { photos: (string | null)[] }) {
             >
               <div className="rounded-3xl bg-white p-3 shadow-xl shadow-sage-deep/15 ring-1 ring-beige">
                 <Photo
-                    src={s.image} 
-                    alt={s.label}
-                    sizes="(max-width: 640px) 80vw, 380px"
-                    className="aspect-[4/5] w-full rounded-2xl"
-                  />
+                  src={photos[i] ?? s.image}
+                  alt={s.label}
+                  sizes="(max-width: 640px) 80vw, 380px"
+                  className="aspect-[4/5] w-full rounded-2xl"
+                />
                 <figcaption className="px-2 pb-2 pt-4 text-center font-display text-2xl font-semibold text-ink">
                   {s.label}
                 </figcaption>

@@ -3,7 +3,6 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle, buttonStyles } from "./Section";
-import { useStoredList } from "@/lib/storage";
 
 type Rsvp = {
   attending: boolean;
@@ -17,13 +16,14 @@ const field =
   "w-full rounded-2xl border border-beige bg-white px-4 py-3 text-base text-ink outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30";
 
 export function RsvpSection() {
-  const [, addRsvp] = useStoredList<Rsvp>("maki-rsvps");
   const [choice, setChoice] = useState<"yes" | "no" | null>(null);
   const [done, setDone] = useState<"yes" | "no" | null>(null);
   const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
 
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!choice) return;
     const data = new FormData(e.currentTarget);
     const rsvp: Rsvp = {
       attending: choice === "yes",
@@ -33,21 +33,23 @@ export function RsvpSection() {
       at: new Date().toISOString(),
     };
     setSending(true);
-    addRsvp(rsvp);
-    const endpoint = process.env.NEXT_PUBLIC_RSVP_ENDPOINT;
-    if (endpoint) {
-      try {
-        await fetch(endpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify(rsvp),
-        });
-      } catch {
-        /* the local copy is kept even if the network fails */
+    setError("");
+    try {
+      const response = await fetch("/api/rsvps", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(rsvp),
+      });
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) {
+        throw new Error(result.error ?? "Unable to save RSVP.");
       }
+      setDone(choice);
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Unable to save RSVP.");
+    } finally {
+      setSending(false);
     }
-    setSending(false);
-    setDone(choice);
   }
 
   return (
@@ -106,6 +108,7 @@ export function RsvpSection() {
                   </span>
                   <textarea name="message" rows={3} maxLength={400} className={field} placeholder="Write a little note…" />
                 </label>
+                {error && <p className="text-sm text-red-700">{error}</p>}
                 <button type="submit" disabled={sending} className={`${buttonStyles.gold} w-full disabled:opacity-60`}>
                   {sending ? "Sending…" : "Send RSVP"}
                 </button>

@@ -5,6 +5,7 @@ import { Section, SectionTitle, buttonStyles } from "./Section";
 import { EVENT } from "@/lib/event";
 
 const fmt = (iso: string) => new Date(iso).toISOString().replace(/[-:]|\.\d{3}/g, "");
+const NUDE_TONES = ["#f4e1cf", "#e7c5aa", "#c99470", "#9c654b"];
 
 function addToCalendar() {
   const ics = [
@@ -74,6 +75,26 @@ export function EventDetails() {
           <p className="mt-3 font-display text-xl leading-relaxed text-ink">
             “Makarius&apos;s birthday is November 9, but we will be celebrating this beautiful milestone together on November 7.”
           </p>
+        </div>
+      </Reveal>
+
+      <Reveal delay={250}>
+        <div className="mx-auto mt-8 max-w-lg rounded-3xl bg-white p-6 text-center shadow-lg shadow-sage-deep/10 ring-1 ring-beige sm:p-8">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-gold">What to wear</p>
+          <h3 className="mt-2 font-display text-3xl font-semibold text-ink">Nude and neutral tones</h3>
+          <p className="mx-auto mt-3 max-w-lg leading-relaxed text-ink/70">
+            Come in your favorite nude, beige, cream, tan, or soft brown outfit so our celebration photos feel warm and beautifully coordinated.
+          </p>
+          <div className="mt-5 flex justify-center gap-3" aria-label="Suggested nude-tone colors">
+            {NUDE_TONES.map((color) => (
+              <span
+                key={color}
+                aria-label={color}
+                className="h-9 w-9 rounded-full border-2 border-white shadow ring-1 ring-beige"
+                style={{ backgroundColor: color }}
+              />
+            ))}
+          </div>
         </div>
       </Reveal>
     </Section>

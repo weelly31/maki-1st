@@ -5,10 +5,12 @@ import { Photo } from "./Photo";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle } from "./Section";
 
+const DEFAULT_PHOTOS = Array.from({ length: 11 }, (_, i) => `/photos/${i + 1}month.jpg`);
+
 // Bible character for each month. Leave empty ("") for months not decided yet.
 const CHARACTERS = [
   "Adam",
-  "Joseph the Dreamer",
+  "Joseph",
   "Jonah",
   "Abel",
   "Noah",
@@ -16,20 +18,19 @@ const CHARACTERS = [
   "David",
   "Samson",
   "Jacob",
-  "",
-  "",
-  "",
+  "King Solomon",
+  "Paul",
 ];
 
-const MONTHS = Array.from({ length: 12 }, (_, i) => i + 1);
+const MONTHS = Array.from({ length: 11 }, (_, i) => i + 1);
 
-export function MonthByMonth({ photos }: { photos: (string | null)[] }) {
+export function MonthByMonth({ photos = DEFAULT_PHOTOS }: { photos?: (string | null)[] }) {
   const [active, setActive] = useState<number | null>(null);
   const open = active !== null;
 
   return (
     <Section id="months" className="bg-gradient-to-b from-cream to-ivory">
-      <SectionTitle eyebrow="Month 1 to Month 12" title="12 MONTHS OF BLESSINGS" subtitle="Watch Makarius grow, one month at a time ? each month with a hero from God's Word." />
+      <SectionTitle eyebrow="Month 1 to Month 11" title="11 MONTHS OF BLESSINGS" subtitle="Watch Makarius grow, one month at a time — each month with a hero from God's Word." />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4">
         {MONTHS.map((m, i) => (
@@ -52,7 +53,7 @@ export function MonthByMonth({ photos }: { photos: (string | null)[] }) {
                 </span>
               )}
               <span className="absolute left-3 top-3 rounded-full bg-gradient-to-r from-[#b8923a] to-[#dcbb64] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow sm:left-4 sm:top-4">
-                {m === 12 ? "12 Months 🎂" : `Month ${m}`}
+                {m === 11 ? "11 Months" : `Month ${m}`}
               </span>
             </button>
           </Reveal>
@@ -76,7 +77,7 @@ export function MonthByMonth({ photos }: { photos: (string | null)[] }) {
                 className="aspect-[4/5] w-full rounded-2xl"
               />
               <p className="pb-1 pt-3 text-center font-display text-2xl font-semibold text-ink">
-                {active === 11 ? "12 Months — ONE Year!" : `Month ${active + 1}`}
+                {active === 10 ? "11 Months — ALMOST ONE Year!" : `Month ${active + 1}`}
               </p>
             </div>
             <div className="mt-4 flex items-center justify-center gap-3">

@@ -3,9 +3,15 @@
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { Opening } from "./Opening";
 
+interface InvitationShellProps {
+  children: ReactNode;
+  onOpenInvitation?: () => void;
+}
+
 /** Gates the story behind the envelope and locks scrolling until it has opened. */
-export function InvitationShell({ children }: { children: ReactNode }) {
+export function InvitationShell({ children, onOpenInvitation }: InvitationShellProps) {
   const [opened, setOpened] = useState(false);
+  
   const handleOpened = useCallback(() => {
     setOpened(true);
     window.scrollTo(0, 0);
@@ -25,7 +31,12 @@ export function InvitationShell({ children }: { children: ReactNode }) {
 
   return (
     <>
-      {!opened && <Opening onOpened={handleOpened} />}
+      {!opened && (
+        <Opening 
+          onOpened={handleOpened} 
+          onOpenMusic={onOpenInvitation} 
+        />
+      )}
       {children}
     </>
   );

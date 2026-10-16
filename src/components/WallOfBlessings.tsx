@@ -1,27 +1,30 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle, buttonStyles } from "./Section";
-import { useStoredList } from "@/lib/storage";
 
 type Message = { name: string; text: string; at: string };
-
-const SEED: Message[] = [
-  {
-    name: "With love",
-    text: "May God continue to guide you, protect you, and bless you as you grow.",
-    at: "2026-01-01T00:00:00.000Z",
-  },
-];
 
 const TILTS = ["-rotate-1", "rotate-1", "rotate-0", "-rotate-[0.5deg]"];
 
 export function WallOfBlessings() {
-  const [messages, addMessage] = useStoredList<Message>("maki-wall", SEED);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  function submit(e: FormEvent<HTMLFormElement>) {
+  useEffect(() => {
+    fetch("/api/messages")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load messages.");
+        return (await response.json()) as Message[];
+      })
+      .then(setMessages)
+      .catch(() => setError("Messages are temporarily unavailable."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -32,8 +35,21 @@ export function WallOfBlessings() {
       return;
     }
     setError("");
-    addMessage({ name, text, at: new Date().toISOString() });
-    form.reset();
+    try {
+      const response = await fetch("/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, text }),
+      });
+      const result = (await response.json()) as Message | { error?: string };
+      if (!response.ok || !("name" in result)) {
+        throw new Error("error" in result ? result.error : "Unable to save message.");
+      }
+      setMessages((current) => [result, ...current]);
+      form.reset();
+    } catch (submitError) {
+      setError(submitError instanceof Error ? submitError.message : "Unable to save message.");
+    }
   }
 
   return (
@@ -63,6 +79,7 @@ export function WallOfBlessings() {
         </form>
       </Reveal>
 
+      {loading && <p className="mt-8 text-center text-sm text-ink/60">Loading messages…</p>}
       <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {messages.map((m, i) => (
           <li key={`${m.at}-${i}`} className="animate-pop">
@@ -74,7 +91,7 @@ export function WallOfBlessings() {
           </li>
         ))}
       </ul>
-      <p className="mt-6 text-center text-xs text-ink/50">Messages are saved on this device.</p>
+      <p className="mt-6 text-center text-xs text-ink/50">Messages are saved securely in the celebration database.</p>
     </Section>
   );
 }

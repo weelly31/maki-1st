@@ -1,18 +1,16 @@
 import { Photo } from "./Photo";
 import { Reveal } from "./Reveal";
 import { Section, SectionTitle } from "./Section";
-import { getPhotos } from "@/lib/photos";
 
 const ITEMS = [
   { icon: "🌱", title: "A New Beginning", text: "The day God blessed our family with Makarius.", image: "/photos/1st.jpg" },
-  { icon: "☀️", title: "Growing in Love", text: "His first smiles, laughs, and precious moments.", image: "/photos/growing-in-love.jpg" },
-  { icon: "🌿", title: "Little Discoveries", text: "Every new experience and little adventure.", image: "/photos/little-discoveries.jpg" },
+  { icon: "☀️", title: "Growing in Love", text: "His first smiles, laughs, and precious moments.", image: "/photos/grow.jpg" },
+  { icon: "🌿", title: "Little Discoveries", text: "Every new experience and little adventure.", image: "/photos/discoveries.jpg" },
   { icon: "🏞️", title: "Precious Memories", text: "Moments shared with family and loved ones.", image: "/photos/precious.jpg" },
   { icon: "🎂", title: "ONE BEAUTIFUL YEAR", text: "Celebrating his first year of life.", image: "/photos/one-year.jpg" },
 ];
 
 export function YearOfBlessings() {
-  const PHOTOS = getPhotos();
   return (
     <Section id="blessings" className="bg-ivory">
       <SectionTitle eyebrow="His first year" title="A YEAR OF BLESSINGS" />

@@ -2,10 +2,8 @@ import { Ambient, Leaf } from "./Decor";
 import { Photo } from "./Photo";
 import { Reveal } from "./Reveal";
 import { EVENT } from "@/lib/event";
-import { getPhotos } from "@/lib/photos";
 
 export function Hero() {
-  const PHOTOS = getPhotos();
   return (
     <section
       id="hero"
@@ -72,6 +70,5 @@ export function Hero() {
     </section>
   );
 }
-
 
 

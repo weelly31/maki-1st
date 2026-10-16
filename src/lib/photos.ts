@@ -9,6 +9,7 @@ const find = (name: string): string | null => {
   return null;
 };
 const many = (prefix: string, n: number) => Array.from({ length: n }, (_, i) => find(`${prefix}-${i + 1}`));
+const monthPhotos = Array.from({ length: 12 }, (_, i) => find(`${i + 1}month`) ?? find(`month-${i + 1}`));
 
 /** Resolved at build time: null means the photo hasn't been added yet, so a placeholder is shown. */
 export function getPhotos() {
@@ -16,7 +17,7 @@ export function getPhotos() {
     hero: find("hero"),
     timeline: many("timeline", 5),
     journey: many("journey", 6),
-    months: many("month", 12),
+    months: monthPhotos,
   };
 }
 
