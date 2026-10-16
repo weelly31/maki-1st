@@ -7,7 +7,7 @@ const ITEMS = [
   { icon: "☀️", title: "Growing in Love", text: "His first smiles, laughs, and precious moments.", image: "/photos/grow.jpg" },
   { icon: "🌿", title: "Little Discoveries", text: "Every new experience and little adventure.", image: "/photos/discoveries.jpg" },
   { icon: "🏞️", title: "Precious Memories", text: "Moments shared with family and loved ones.", image: "/photos/precious.jpg" },
-  { icon: "🎂", title: "ONE BEAUTIFUL YEAR", text: "Celebrating his first year of life.", image: "/photos/one-year.jpg" },
+  { icon: "🎂", title: "ONE BEAUTIFUL YEAR", text: "Celebrating his first year of life.", image: "/photos/1year.jpg" },
 ];
 
 export function YearOfBlessings() {

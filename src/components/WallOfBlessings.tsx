@@ -100,7 +100,7 @@ export function WallOfBlessings() {
           </li>
         ))}
       </ul>
-      <p className="mt-6 text-center text-xs text-ink/50">Messages are saved securely in the celebration database.</p>
+      <p className="mt-6 text-center text-xs text-ink/50">Your messages will be saved here."</p>
     </Section>
   );
 }
