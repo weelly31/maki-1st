@@ -12,7 +12,7 @@ const STAGES = [
   { label: "First Bites", short: "First Bites", image: "/photos/first-bites.jpg" },
   { label: "Little Adventures", short: "Adventures", image: "/photos/adventures.jpg" },
   { label: "Family Moments", short: "Family", image: "/photos/family.jpg" },
-  { label: "Today — One Beautiful Year", short: "Today", image: "/photos/one.jpg" },
+  { label: "Today — One Beautiful Year", short: "Today", image: "/photos/forone.jpg" },
 ];
 
 export function PhotoJourney({ photos }: { photos: (string | null)[] }) {
