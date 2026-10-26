@@ -4,12 +4,12 @@ export const EVENT = {
   dateLabel: "November 7, 2026",
   shortDate: "November 7",
   timeLabel: "3:00 PM",
-  venue: "Tanglaw Ministry Center",
+  venue: "Vista Verde Executive Village Clubhouse",
   // Philippine Standard Time (UTC+8)
   startsAt: "2026-11-07T15:00:00+08:00",
   endsAt: "2026-11-07T18:00:00+08:00",
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Tanglaw+Touch+Care+Foundation",
+    "https://www.google.com/maps/search/?api=1&query=Vista+Verde+Executive+Village+Clubhouse",
 } as const;
 
 export const NAV_LINKS = [

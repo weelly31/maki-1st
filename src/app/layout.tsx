@@ -23,7 +23,7 @@ const body = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Makarius's 1st Birthday • You're Invited",
   description:
-    "Join us on November 7, 2026 at 3:00 PM at Tanglaw Ministry Center as we celebrate one beautiful year of God's blessings with Makarius Kleon Andrade.",
+    "Join us on November 7, 2026 at 3:00 PM at Vista Verde Executive Village Clubhouse as we celebrate one beautiful year of God's blessings with Makarius Kleon Andrade.",
 };
 
 export const viewport: Viewport = {
