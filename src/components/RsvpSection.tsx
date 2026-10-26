@@ -101,7 +101,7 @@ export function RsvpSection() {
                 </label>
                 {choice === "yes" && (
                   <label className="block">
-                    <span className="mb-1 block text-sm font-bold text-sage-deep">Number of Guests</span>
+                    <span className="mb-1 block text-sm font-bold text-sage-deep">Number of people attending (including you)</span>
                     <input name="guests" type="number" inputMode="numeric" min={1} max={20} defaultValue={1} required className={field} />
                   </label>
                 )}

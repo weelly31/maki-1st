@@ -25,8 +25,11 @@ export function AttendanceList() {
       .catch(() => setError("Hindi ma-load ang attendance list ngayon."));
   }, []);
 
-  const attendingCount = rsvps.filter((rsvp) => rsvp.attending).length;
-  const notAttendingCount = rsvps.length - attendingCount;
+  const attendingCount = rsvps.reduce(
+    (total, rsvp) => total + (rsvp.attending ? rsvp.guests : 0),
+    0,
+  );
+  const notAttendingCount = rsvps.filter((rsvp) => !rsvp.attending).length;
 
   return (
     <main className="min-h-screen bg-ivory px-5 py-12 text-ink">
@@ -51,7 +54,7 @@ export function AttendanceList() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h2 className="font-display text-2xl font-semibold">{rsvp.name}</h2>
                 <span className={`rounded-full px-3 py-1 text-sm font-bold ${rsvp.attending ? "bg-sage/40 text-sage-deep" : "bg-cream text-ink/70"}`}>
-                  {rsvp.attending ? `Yes · ${rsvp.guests} guest${rsvp.guests === 1 ? "" : "s"}` : "No · Cannot attend"}
+                  {rsvp.attending ? `Yes · ${rsvp.guests} ${rsvp.guests === 1 ? "person" : "people"}` : "No · Cannot attend"}
                 </span>
               </div>
               {rsvp.message && <p className="mt-3 text-ink/75">{rsvp.message}</p>}
